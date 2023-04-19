@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+// MODELS
+use App\Models\Restaurant; 
+
 // Controllers
 use App\Http\Controllers\Admin\PageController;
 
@@ -23,6 +26,8 @@ Route::get('/', function () {
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
+
+    Route::resource('restaurant', Restaurant::class)->only(['edit', 'update']);;
 });
 
 Route::middleware('auth')->group(function () {
